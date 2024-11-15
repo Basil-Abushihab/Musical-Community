@@ -1,4 +1,4 @@
-import { useInstrument } from "../../../Custom-Hooks/instrumentHooks";
+import { useInstrument } from "../../../Custom-Hooks/instrumentHooks/instrumentHooks";
 import { useState } from "react";
 import {
   Button,

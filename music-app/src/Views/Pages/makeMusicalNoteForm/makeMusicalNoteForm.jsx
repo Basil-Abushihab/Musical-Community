@@ -1,4 +1,4 @@
-import { useNote } from "../../../Custom-Hooks/noteHooks";
+import { useNote } from "../../../Custom-Hooks/musicalNotesHooks/noteHooks";
 import { useState } from "react";
 import {
   Button,

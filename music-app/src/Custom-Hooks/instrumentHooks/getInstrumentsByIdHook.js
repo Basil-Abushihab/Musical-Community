@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getInstrumentByID } from "../Redux/Thunks/instrumentThunks/getInstrumentByID";
+import { getInstrumentByID } from "../../Redux/Thunks/instrumentThunks/getInstrumentByID";
 export const useGetInstrumentByID = (instrumentID) => {
   const dispatch = useDispatch();
   const instrument = useSelector((state) => state.instrument);

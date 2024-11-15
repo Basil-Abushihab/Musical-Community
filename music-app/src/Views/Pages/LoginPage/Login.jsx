@@ -7,7 +7,7 @@ import {
   Button,
   Spinner,
 } from "@material-tailwind/react";
-import { useAuth } from "../../../Custom-Hooks/authHooks";
+import { useAuth } from "../../../Custom-Hooks/authHooks/authHooks";
 import { Link } from "react-router-dom";
 
 export const Login = () => {
@@ -16,7 +16,6 @@ export const Login = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    console.log(name, value);
 
     const newFormData = formData;
     newFormData.set(name, value);

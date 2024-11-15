@@ -10,7 +10,7 @@ import {
   Rating,
 } from "@material-tailwind/react";
 import { Music } from "lucide-react";
-import { useGetNoteByID } from "../../../Custom-Hooks/getNoteByIDHook";
+import { useGetNoteByID } from "../../../Custom-Hooks/musicalNotesHooks/getNoteByIDHook";
 
 export const MusicalNoteDetailPage = () => {
   const { id } = useParams();

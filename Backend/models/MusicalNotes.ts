@@ -12,4 +12,6 @@ const musicalNotesSchema = new Schema({
   isDeleted: { type: Boolean, default: false },
 });
 
+musicalNotesSchema.index({ noteTitle: "text" });
+
 export const MusicalNote = model("MusicalNote", musicalNotesSchema);

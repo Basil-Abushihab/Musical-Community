@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { makeInstrumentListing } from "../Redux/Thunks/instrumentThunks/makeInstrumentThunk";
+import { makeInstrumentListing } from "../../Redux/Thunks/instrumentThunks/makeInstrumentThunk";
 export const useInstrument = (formData) => {
   const dispatch = useDispatch();
   const instrument = useSelector((state) => state.instrument);

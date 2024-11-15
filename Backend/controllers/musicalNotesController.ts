@@ -57,3 +57,78 @@ export const getMusicalNoteByID = async (
     res.status(501).json({ message: "Internal server error", error: e });
   }
 };
+
+export const getPaginatedMusicalNotes = async (
+  req: CustomRequest,
+  res: Response
+) => {
+  const page = parseInt(req.query.page as string) || 1;
+  const limit = 10;
+  const skip = (page - 1) * limit;
+  try {
+    const paginatedMusicalNotes = MusicalNote.find().skip(skip).limit(limit);
+    res.status(200).json({
+      message: "Musical notes returned successfully",
+      musicalNotes: paginatedMusicalNotes,
+    });
+  } catch (e) {
+    res
+      .status(500)
+      .json({ message: "Internal Server Error", error: e.message });
+  }
+};
+
+export const updateNoteData = async (req: CustomRequest, res: Response) => {
+  const updatedData = req.body;
+  try {
+    const updatedNote = await MusicalNote.findByIdAndUpdate(
+      updatedData.id,
+      updatedData
+    );
+    res.status(201).json({
+      message: "Instrument updated successfully",
+      musicalNote: updatedNote,
+    });
+  } catch (e) {
+    console.log(e);
+    res
+      .status(500)
+      .json({ message: "Internal server error", error: e.message });
+  }
+};
+
+export const deleteNote = async (req: CustomRequest, res: Response) => {
+  const instrumentID = req.body;
+  try {
+    const deletedNote = await MusicalNote.findByIdAndUpdate(instrumentID, {
+      isDeleted: true,
+    });
+    res.status(201).json({
+      message: "Instrument deleted successfully",
+      musicalNote: deletedNote,
+    });
+  } catch (e) {
+    console.log(e);
+    res
+      .status(500)
+      .json({ message: "Internal Server error", error: e.message });
+  }
+};
+
+export const approveOrRejectMusicalNoteListing = async (
+  req: CustomRequest,
+  res: Response
+) => {
+  const { noteID, isApproved } = req.body;
+  try {
+    const instrument = await MusicalNote.findByIdAndUpdate(noteID, {
+      isApproved: isApproved,
+    });
+    res.status(201).json({ instrument: instrument });
+  } catch (e) {
+    console.log(e);
+    res
+      .status(500)
+      .json({ message: "Internal server error", error: e.message });
+  }
+};

@@ -10,6 +10,8 @@ import userRoutes from "./routes/userRoutes";
 import instrumentRouter from "./routes/instrumentRoutes";
 import musicalNoteRouter from "./routes/musicalNoteRoutes";
 import paymentRoutes from "./routes/stripeRoutes";
+import adminRoutes from "./routes/adminRoutes";
+import compression from "compression";
 dotenv.config();
 
 const app = express();
@@ -24,15 +26,10 @@ Middlewares Definition Starting with:
 
 const corsConfig = {
   credentials: true,
-  origin: "http://localhost:3000",
+  origin: ["http://localhost:3000", "http://localhost:5173"],
 };
 
-app.use((req: Request, res: Response, next: NextFunction) => {
-  res.header("Access-Control-Allow-Credentials", "true");
-  res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-  next();
-});
-
+app.use(compression());
 app.use(cors(corsConfig));
 app.use(bodyParser.json());
 app.use(cookieParser());
@@ -50,6 +47,8 @@ app.use("/api/users", userRoutes);
 app.use("/api/instruments", instrumentRouter);
 app.use("/api/musicalNotes", musicalNoteRouter);
 app.use("/api/payments", paymentRoutes);
+app.use("/api/admins", adminRoutes);
+
 /* Server run */
 app.listen(port, () => {
   console.log(`Running on port http://localhost:${port}`);

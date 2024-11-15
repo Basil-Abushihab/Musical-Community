@@ -6,7 +6,7 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
-import { useAuth } from "../../../Custom-Hooks/authHooks";
+import { useAuth } from "../../../Custom-Hooks/authHooks/authHooks";
 export const ProfileMenu = () => {
   const { auth } = useAuth();
   return (

@@ -18,7 +18,7 @@ const HeroSlider = () => {
   return (
     <div className="flex justify-center items-center pt-20 ">
       <Carousel
-        className=" h-[45rem] max-w-[120rem] w-[89%] shadow-xl transition-color duration-700 dark:shadow-pink-400"
+        className=" h-[45rem]  shadow-xl transition-color duration-700 dark:shadow-pink-400"
         transition={{ duration: 2 }}
         autoplay={true}
         loop={true}

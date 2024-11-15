@@ -57,16 +57,126 @@ export const getInstrumentByID = async (
     const instrument = await Instrument.findById(instrumentID).populate(
       "posterID"
     );
-    res
-      .status(200)
-      .json({
-        message: "note data fetched Successfully",
-        instrument: instrument,
-      });
+    res.status(200).json({
+      message: "note data fetched Successfully",
+      instrument: instrument,
+    });
   } catch (e) {
     console.log(e);
     res
       .status(501)
+      .json({ message: "Internal server error", error: e.message });
+  }
+};
+
+export const getPaginatedInstruments = async (
+  req: CustomRequest,
+  res: Response
+) => {
+  const page = parseInt(req.query.page as string) || 1;
+  const limit = 10;
+  const skip = (page - 1) * limit;
+  try {
+    const paginatedInstruments = await Instrument.find()
+      .skip(skip)
+      .limit(limit);
+    res.status(200).json({
+      message: "data returned successfully",
+      instruments: paginatedInstruments,
+    });
+  } catch (e) {
+    console.log(e);
+    res
+      .status(500)
+      .json({ message: "Internal server error", error: e.message });
+  }
+};
+
+export const updateInstrumentData = async (
+  req: CustomRequest,
+  res: Response
+) => {
+  const updatedData = req.body;
+  try {
+    const updatedInsturment = await Instrument.findByIdAndUpdate(
+      updatedData.id,
+      updatedData
+    );
+    res.status(201).json({
+      message: "Instrument updated successfully",
+      instrument: updatedInsturment,
+    });
+  } catch (e) {
+    console.log(e);
+    res
+      .status(500)
+      .json({ message: "Internal server error", error: e.message });
+  }
+};
+
+export const deleteInstrument = async (req: CustomRequest, res: Response) => {
+  const instrumentID = req.body;
+  try {
+    const deletedInstrument = await Instrument.findByIdAndUpdate(instrumentID, {
+      isDeleted: true,
+    });
+    res.status(201).json({
+      message: "Instrument deleted successfully",
+      instrument: deletedInstrument,
+    });
+  } catch (e) {
+    console.log(e);
+    res
+      .status(500)
+      .json({ message: "Internal Server error", error: e.message });
+  }
+};
+
+export const searchInstrument = async (req: CustomRequest, res: Response) => {
+  const searchTerm: string | any = req.query;
+  try {
+    const searchResult = await Instrument.find({
+      $text: { $search: searchTerm as string },
+    });
+    if (!searchResult) res.status(204).json({ message: "No content found" });
+    else
+      res.status(200).json({
+        message: "Data retrieved successfully",
+        searchResult: searchResult,
+      });
+  } catch (e) {
+    console.log(e);
+    res
+      .status(500)
+      .json({ message: "Internal server error", error: e.message });
+  }
+};
+
+export const filterInstrument = async (req: CustomRequest, res: Response) => {
+  const { filterType, filterString } = req.body;
+  try {
+  } catch (e) {
+    console.log(e);
+    res
+      .status(500)
+      .json({ message: "Internal server error", error: e.message });
+  }
+};
+
+export const approveOrRejectInstrumentListing = async (
+  req: CustomRequest,
+  res: Response
+) => {
+  const { instrumentID, isApproved } = req.body;
+  try {
+    const instrument = await Instrument.findByIdAndUpdate(instrumentID, {
+      isApproved: isApproved,
+    });
+    res.status(201).json({ instrument: instrument });
+  } catch (e) {
+    console.log(e);
+    res
+      .status(500)
       .json({ message: "Internal server error", error: e.message });
   }
 };

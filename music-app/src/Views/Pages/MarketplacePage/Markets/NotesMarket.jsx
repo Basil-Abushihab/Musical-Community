@@ -10,16 +10,7 @@ export const NotesMarket = () => {
         <Typography className="text-gray-900 dark:text-gray-200 text-[2.5rem]">
           ### Items Available
         </Typography>
-        <div className="grid grid-cols-3 gap-10 gap-x-10">
-          <NotesCards isHomePage={false} />
-          <NotesCards isHomePage={false} />
-          <NotesCards isHomePage={false} />
-          <NotesCards isHomePage={false} />
-          <NotesCards isHomePage={false} />
-          <NotesCards isHomePage={false} />
-          <NotesCards isHomePage={false} />
-          <NotesCards isHomePage={false} />
-        </div>
+        <div className="grid grid-cols-3 gap-10 gap-x-10"></div>
       </div>
     </div>
   );

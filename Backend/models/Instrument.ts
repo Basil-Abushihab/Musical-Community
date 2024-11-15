@@ -14,4 +14,6 @@ const instrumentSchema = new Schema({
   isDeleted: { type: Boolean, default: false },
 });
 
+instrumentSchema.index({ instrumentTitle: "text" });
+
 export const Instrument = model("Instrument", instrumentSchema);

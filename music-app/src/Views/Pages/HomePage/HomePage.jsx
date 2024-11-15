@@ -2,8 +2,8 @@ import HeroSlider from "../../sharedComponents/HeroSectionSlider/HeroSectionSlid
 import { AboutContainer } from "../../sharedComponents/AboutContainer/About-Container";
 import { MarketplaceSlider } from "./MarketPlaceComponent/MarketplaceSlider";
 import { SliderNotes } from "./MarketPlaceComponent/MarketplaceSlider-MusicalNotes";
-import { useGetAllInstruments } from "../../../Custom-Hooks/getAllInstrumentsHook";
-import { useGetNotes } from "../../../Custom-Hooks/getNotesHooks";
+import { useGetAllInstruments } from "../../../Custom-Hooks/instrumentHooks/getAllInstrumentsHook";
+import { useGetNotes } from "../../../Custom-Hooks/musicalNotesHooks/getNotesHooks";
 import { Spinner } from "@material-tailwind/react";
 export const HomePage = () => {
   const instruments = useGetAllInstruments();

@@ -11,10 +11,12 @@ import Heart from "react-heart";
 import { useState } from "react";
 import { context } from "../Context-provider/context-provider";
 import { useContext } from "react";
-export const EquipmentCards = ({ isHomePage, instrument }) => {
+import { useCart } from "../../../Custom-Hooks/cartHooks/cartHooks";
+export const EquipmentCards = ({ isHomePage, instrument, index }) => {
   const [isClick, setClick] = useState(false);
   const [darkSide, setDarkside] = useContext(context).darkSide;
 
+  const { addItemToCartHandler } = useCart();
   const cardClassNames = isHomePage
     ? "w-96 h-[34rem] bg-gray-200 dark:bg-gray-900"
     : "w-96 h-[34rem] bg-gray-900 dark:bg-gray-200";
@@ -57,7 +59,21 @@ export const EquipmentCards = ({ isHomePage, instrument }) => {
         </div>
       </CardBody>
       <CardFooter className="pt-0 flex gap-4">
-        <Button ripple={false} fullWidth={true} className={buttonClassNames}>
+        <Button
+          ripple={false}
+          fullWidth={true}
+          className={buttonClassNames}
+          onClick={() => {
+            const cartItem = {
+              quantity: 1,
+              itemName: instrument.instrumentTitle,
+              price: instrument.instrumentPrice,
+              id: index,
+            };
+
+            addItemToCartHandler(cartItem);
+          }}
+        >
           Add to Cart
         </Button>
         <div className="w-[1.9rem] flex justify-end ">

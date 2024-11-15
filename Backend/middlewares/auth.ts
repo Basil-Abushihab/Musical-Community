@@ -15,7 +15,6 @@ export function auth(req: CustomRequest, res: Response, next: NextFunction) {
       res.status(401).json({ message: "Unauthorized access" });
     }
     const decoded = jwt.verify(token, secret);
-    console.log(decoded);
     req.user = decoded;
     next();
   } catch (e) {

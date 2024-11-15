@@ -82,6 +82,7 @@ export const MarketplaceSlider = ({ instruments }) => {
             index < 3 ? (
               <EquipmentCards
                 key={index}
+                index={index}
                 isHomePage={true}
                 instrument={instrument}
               />
@@ -96,6 +97,7 @@ export const MarketplaceSlider = ({ instruments }) => {
             index <= 6 && index > 3 ? (
               <EquipmentCards
                 key={index}
+                index={index}
                 isHomePage={true}
                 instrument={instrument}
               />

@@ -4,8 +4,9 @@ import { Button } from "@mui/material";
 import { Menu } from "lucide-react";
 import musicalLogo from "./assets/Musical-Note.png";
 import Switcher from "../theme-selector/Switcher";
-import { useAuth } from "../../../Custom-Hooks/authHooks";
+import { useAuth } from "../../../Custom-Hooks/authHooks/authHooks";
 import { ProfileMenu } from "../ProfileMenu/ProfileMenu";
+import { CheckoutDialog } from "../../Pages/checkoutDialog/checkoutDialog";
 
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -55,7 +56,10 @@ const NavBar = () => {
 
         <div className="hidden md:flex items-center gap-4">
           {auth.isLoggedIn ? (
-            <ProfileMenu />
+            <div>
+              <ProfileMenu />
+              <CheckoutDialog />
+            </div>
           ) : (
             <>
               <Button

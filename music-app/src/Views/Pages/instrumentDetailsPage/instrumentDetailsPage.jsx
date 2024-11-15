@@ -11,7 +11,7 @@ import {
   Textarea,
   Rating,
 } from "@material-tailwind/react";
-import { useGetInstrumentByID } from "../../../Custom-Hooks/getInstrumentsByIdHook";
+import { useGetInstrumentByID } from "../../../Custom-Hooks/instrumentHooks/getInstrumentsByIdHook";
 
 export const InstrumentDetailPage = () => {
   const { id } = useParams();

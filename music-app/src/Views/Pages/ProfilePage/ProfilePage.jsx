@@ -7,7 +7,7 @@ import {
   Spinner,
 } from "@material-tailwind/react";
 import { EquipmentForm } from "../makeEquipmentListingPage/equipmentForm";
-import { useUser } from "../../../Custom-Hooks/userHooks";
+import { useUser } from "../../../Custom-Hooks/userHooks/userHooks";
 import { NoteForm } from "../makeMusicalNoteForm/makeMusicalNoteForm";
 
 const ProfileSection = ({ title, items }) => (

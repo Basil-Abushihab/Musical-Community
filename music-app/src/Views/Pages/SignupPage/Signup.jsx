@@ -9,7 +9,7 @@ import {
 } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { useAuth } from "../../../Custom-Hooks/authHooks";
+import { useAuth } from "../../../Custom-Hooks/authHooks/authHooks";
 
 export const Signup = () => {
   const [formData, setFormData] = useState(new FormData());

@@ -2,8 +2,18 @@ import { Schema, model } from "mongoose";
 
 const orderSchema = new Schema({
   orderedItems: [
-    { type: Schema.Types.ObjectId, ref: "Instrument" },
-    { type: Schema.Types.ObjectId },
+    {
+      itemType: {
+        type: String,
+        required: true,
+        enum: ["Instrument", "MusicalNote"],
+      },
+      item: {
+        type: Schema.Types.ObjectId,
+        required: true,
+        refPath: "orderedItems.itemType",
+      },
+    },
   ],
   total: Number,
   subTotal: Number,
