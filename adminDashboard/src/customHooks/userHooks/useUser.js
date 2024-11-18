@@ -12,5 +12,5 @@ export const useUser = () => {
     );
   };
 
-  return { disableOrEnableUser, users: users };
+  return { disableOrEnableUser };
 };

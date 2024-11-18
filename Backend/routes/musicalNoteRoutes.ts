@@ -7,11 +7,12 @@ import {
   updateNoteData,
   deleteNote,
   approveOrRejectMusicalNoteListing,
+  makeMusicalNoteReview,
 } from "../controllers/musicalNotesController";
 import { auth } from "../middlewares/auth";
 import { processImages } from "../middlewares/imageProccessor";
 import { uploadFiles } from "../middlewares/firebaseUpload";
-
+import { getNoteCount } from "../models/MusicalNotes";
 const router = express.Router();
 
 router.post(
@@ -31,4 +32,6 @@ router.put(
   auth,
   approveOrRejectMusicalNoteListing
 );
+router.get("/getNoteCount", getNoteCount);
+router.post("/makeIInstrumentReview", auth, makeMusicalNoteReview);
 export default router;

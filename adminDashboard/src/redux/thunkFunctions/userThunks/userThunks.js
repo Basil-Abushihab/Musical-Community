@@ -4,11 +4,10 @@ import axios from "../../../utils/axiosInstance";
 export const getPaginatedUsers = createAsyncThunk(
   "user/getPaginatedUsers",
   async (page) => {
-    console.log(page);
     const response = await axios.get(
       `/api/users/getPaginatedUsers?page=${page}`
     );
-    return response.data.paginatedUsers;
+    return response.data.users;
   }
 );
 

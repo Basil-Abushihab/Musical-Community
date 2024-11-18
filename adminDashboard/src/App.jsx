@@ -11,6 +11,7 @@ import { LoginPage } from "./pages/loginPage";
 import { AdminDashboardHome } from "./pages/homePage/homePage";
 import { UsersPage } from "./pages/usersPage/usersPage";
 import { InstrumentListingTable } from "./pages/instrumentListingPage/InstrumentListingPage";
+import { MusicalNoteListingTable } from "./pages/musicalNoteListingPage/musicalNoteListingPage";
 const AppLayout = () => {
   const location = useLocation();
   const isLoginPage = location.pathname === "/";
@@ -26,6 +27,10 @@ const AppLayout = () => {
           <Route
             path="/ManageInstrumentListing"
             element={<InstrumentListingTable />}
+          />
+          <Route
+            path="/ManageMusicalNoteListing"
+            element={<MusicalNoteListingTable />}
           />
         </Routes>
       </div>

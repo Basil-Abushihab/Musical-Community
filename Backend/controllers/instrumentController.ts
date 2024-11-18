@@ -2,6 +2,7 @@ import { CustomRequest } from "../projectConfigs/expressObjectsConfig";
 import { Response } from "express";
 import { Instrument } from "../models/Instrument";
 import { RegisterdUser } from "../models/RegisteredUser";
+import { Review } from "../models/Reviews";
 export const makeInstrumentListing = async (
   req: CustomRequest,
   res: Response
@@ -32,7 +33,6 @@ export const getAllInstruments = async (
   req: CustomRequest,
   res: Response
 ): Promise<void> => {
-  const user = req.user;
   try {
     const instruments = await Instrument.find()
       .where("posterID")
@@ -79,7 +79,8 @@ export const getPaginatedInstruments = async (
   try {
     const paginatedInstruments = await Instrument.find()
       .skip(skip)
-      .limit(limit);
+      .limit(limit)
+      .populate("posterID");
     res.status(200).json({
       message: "data returned successfully",
       instruments: paginatedInstruments,
@@ -169,6 +170,7 @@ export const approveOrRejectInstrumentListing = async (
 ) => {
   const { instrumentID, isApproved } = req.body;
   try {
+    console.log(isApproved);
     const instrument = await Instrument.findByIdAndUpdate(instrumentID, {
       isApproved: isApproved,
     });
@@ -178,5 +180,30 @@ export const approveOrRejectInstrumentListing = async (
     res
       .status(500)
       .json({ message: "Internal server error", error: e.message });
+  }
+};
+
+export const makeInstrumentReview = async (
+  req: CustomRequest,
+  res: Response
+) => {
+  const userID = req.user;
+  const reviewData = req.body;
+  const instrumentID = req.query;
+  try {
+    reviewData.poster = userID;
+    const review = await new Review(reviewData).save();
+    const instrument = await Instrument.findByIdAndUpdate(instrumentID, {
+      reviews: review._id,
+    });
+    res
+      .status(201)
+      .json({
+        message: "review made successfully",
+        review: review,
+        instrument: instrument,
+      });
+  } catch (e) {
+    res.status(500).json({ message: "Internal server error", error: e });
   }
 };

@@ -11,6 +11,7 @@ import {
   Textarea,
   Select,
 } from "@material-tailwind/react";
+
 export const EquipmentForm = () => {
   const [formData, setFormData] = useState(new FormData());
   const [open, setOpen] = useState(false);
@@ -33,14 +34,14 @@ export const EquipmentForm = () => {
     <>
       <Button
         onClick={handleOpen}
-        color="white"
-        className="text-pink-500 hover:bg-pink-50"
+        color="orange"
+        className="text-white hover:bg-orange-600"
       >
         Make Equipment Listing
       </Button>
       <Dialog open={open} handler={handleOpen} size="xl">
         <form onSubmit={makeInstrumentListingHandler}>
-          <DialogHeader className="text-2xl font-bold text-center text-blue-900 bg-blue-100 py-4">
+          <DialogHeader className="text-2xl font-bold text-center text-white bg-orange-500 py-4">
             Sell Your Musical Equipment
           </DialogHeader>
           <DialogBody divider className="grid gap-4 p-6">
@@ -97,13 +98,13 @@ export const EquipmentForm = () => {
           <DialogFooter className="flex justify-end space-x-2 p-4">
             <Button
               variant="outlined"
-              color="red"
+              color="orange"
               onClick={handleOpen}
               className="mr-1"
             >
               Cancel
             </Button>
-            <Button type="submit" variant="gradient" color="green">
+            <Button type="submit" variant="gradient" color="orange">
               List Instrument
             </Button>
           </DialogFooter>

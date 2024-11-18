@@ -3,9 +3,10 @@ import axios from "../../../utils/axiosInstance";
 
 export const approveOrRejectInstrument = createAsyncThunk(
   "instrument/approveOrRejectInstrument",
-  async (instrumentID, isApproved) => {
+  async ({ instrumentID, isApproved }) => {
+    console.log(isApproved);
     const response = await axios.put(
-      "/api/instrument/approveOrRejectMusicalNoteListing",
+      "/api/instruments/approveOrRejectInstrument",
       { instrumentID: instrumentID, isApproved: isApproved }
     );
     return response.data.instrument;

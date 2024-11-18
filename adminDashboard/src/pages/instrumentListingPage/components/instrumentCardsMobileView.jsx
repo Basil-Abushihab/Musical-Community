@@ -10,33 +10,25 @@ import {
   MenuList,
   Chip,
 } from "@material-tailwind/react";
-
+import { useInstrument } from "../../../customHooks/instrumentHooks/useInstrument";
 import { MoreVertical } from "lucide-react";
-
 export const InstrumentCard = ({ instrument }) => {
+  const { handleApprove, handleReject } = useInstrument(instrument._id);
   return (
     <Card className="p-4 mb-4">
       <div className="flex items-center gap-4">
         <img
-          src={instrument.image}
-          alt={instrument.title}
+          src={instrument.instrumentMedia}
+          alt={instrument.instrumentTitle}
           className="h-16 w-16 rounded-lg object-cover"
         />
         <div className="flex-1">
           <Typography variant="h6" color="blue-gray" className="mb-1">
-            {instrument.title}
+            {instrument.instrumentTitle}
           </Typography>
           <Typography variant="small" color="gray" className="mb-2">
-            Requested by: {instrument.requester}
+            Requested by: {instrument.posterID.username}
           </Typography>
-          <div className="flex flex-wrap gap-2 mb-2">
-            <Chip
-              variant="filled"
-              size="sm"
-              value={instrument.status}
-              color="blue"
-            />
-          </div>
         </div>
         <Menu placement="bottom-end">
           <MenuHandler>
@@ -45,8 +37,20 @@ export const InstrumentCard = ({ instrument }) => {
             </IconButton>
           </MenuHandler>
           <MenuList>
-            <MenuItem>View Details</MenuItem>
-            <MenuItem>Approve Request</MenuItem>
+            <MenuItem
+              onClick={() => {
+                handleApprove();
+              }}
+            >
+              Approve Request
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                handleReject();
+              }}
+            >
+              Reject Request
+            </MenuItem>
             <MenuItem className="text-red-500">Disapprove Request</MenuItem>
           </MenuList>
         </Menu>

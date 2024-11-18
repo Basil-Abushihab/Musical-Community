@@ -2,6 +2,7 @@ import { CustomRequest } from "../projectConfigs/expressObjectsConfig";
 import { Response } from "express";
 import { RegisterdUser } from "../models/RegisteredUser";
 import { MusicalNote } from "../models/MusicalNotes";
+import { Review } from "../models/Reviews";
 export const makeMusicalNoteListing = async (
   req: CustomRequest,
   res: Response
@@ -66,7 +67,11 @@ export const getPaginatedMusicalNotes = async (
   const limit = 10;
   const skip = (page - 1) * limit;
   try {
-    const paginatedMusicalNotes = MusicalNote.find().skip(skip).limit(limit);
+    const paginatedMusicalNotes = await MusicalNote.find()
+      .skip(skip)
+      .limit(limit)
+      .populate("posterID");
+    console.log(paginatedMusicalNotes);
     res.status(200).json({
       message: "Musical notes returned successfully",
       musicalNotes: paginatedMusicalNotes,
@@ -130,5 +135,30 @@ export const approveOrRejectMusicalNoteListing = async (
     res
       .status(500)
       .json({ message: "Internal server error", error: e.message });
+  }
+};
+
+export const makeMusicalNoteReview = async (
+  req: CustomRequest,
+  res: Response
+) => {
+  const userID = req.user;
+  const reviewData = req.body;
+  const musicalNoteID = req.query;
+  try {
+    reviewData.poster = userID;
+    const review = await new Review(reviewData).save();
+    const musicalNote = await MusicalNote.findByIdAndUpdate(musicalNoteID, {
+      reviews: review._id,
+    });
+    res
+      .status(201)
+      .json({
+        message: "review made successfully",
+        review: review,
+        musicalNote: musicalNote,
+      });
+  } catch (e) {
+    res.status(500).json({ message: "Internal server error", error: e });
   }
 };

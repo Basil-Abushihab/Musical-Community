@@ -1,7 +1,6 @@
 import { CustomRequest } from "../projectConfigs/expressObjectsConfig";
 import { Response } from "express";
 import { RegisterdUser } from "../models/RegisteredUser";
-import { Order } from "../models/Order";
 export const getUserDataByID = async (req: CustomRequest, res: Response) => {
   const userID = req.user;
   try {
@@ -12,7 +11,6 @@ export const getUserDataByID = async (req: CustomRequest, res: Response) => {
         { path: "listedInstruments" },
         { path: "soldInstruments" },
         { path: "listedMusicalNotes" },
-        { path: "salesStatistics" },
       ])
       .exec();
     if (user) {
@@ -51,11 +49,9 @@ export const getPaginatedUsers = async (req: CustomRequest, res: Response) => {
   const page = parseInt(req.query.page as string) || 1;
   const limit = 10;
   const skip = (page - 1) * limit;
+
   try {
-    const paginatedUsers = await RegisterdUser.find({
-      limit: limit,
-      skip: skip,
-    });
+    const paginatedUsers = await RegisterdUser.find().limit(limit).skip(skip);
     res.status(200).json({ users: paginatedUsers });
   } catch (e) {
     console.log(e);

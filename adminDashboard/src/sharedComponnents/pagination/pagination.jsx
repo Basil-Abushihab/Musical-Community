@@ -16,13 +16,12 @@ export function CircularPagination({ itemLength, paginatedDataFunction }) {
   const next = () => {
     if (active === itemLength) return;
     setActive(active + 1);
-    paginatedDataFunction(active);
+    paginatedDataFunction(active + 1);
   };
 
   const prev = () => {
-    if (active === itemLength) return;
-
     setActive(active - 1);
+    paginatedDataFunction(active - 1);
   };
 
   return (

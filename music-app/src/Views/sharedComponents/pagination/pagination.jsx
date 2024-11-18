@@ -7,7 +7,7 @@ export function CircularPagination({ itemLength }) {
 
   const getItemProps = (index) => ({
     variant: active === index ? "filled" : "text",
-    color: "gray",
+    color: "orange",
     onClick: () => setActive(index),
     className: "rounded-full",
   });
@@ -31,11 +31,11 @@ export function CircularPagination({ itemLength }) {
         className="flex items-center gap-2 rounded-full"
         onClick={prev}
         disabled={active === 1}
+        color="orange"
       >
         <ArrowLeftIcon strokeWidth={2} className="h-4 w-4" /> Previous
       </Button>
       <div className="flex items-center gap-2">
-        {" "}
         {Array.from({ length: itemLength }, (_, index) => (
           <IconButton key={index + 1} {...getItemProps(index + 1)}>
             {index + 1}
@@ -47,6 +47,7 @@ export function CircularPagination({ itemLength }) {
         className="flex items-center gap-2 rounded-full"
         onClick={next}
         disabled={active === 5}
+        color="orange"
       >
         Next
         <ArrowRightIcon strokeWidth={2} className="h-4 w-4" />

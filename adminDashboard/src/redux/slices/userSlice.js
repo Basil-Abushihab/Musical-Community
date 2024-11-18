@@ -3,11 +3,22 @@ import {
   getPaginatedUsers,
   updateUserInformation,
 } from "../thunkFunctions/userThunks/userThunks";
-const initialState = { users: [], status: "idle", error: "", user: {} };
+const initialState = {
+  users: [],
+  status: "idle",
+  error: "",
+  user: {},
+  page: 1,
+};
 
 const userSlice = createSlice({
   initialState: initialState,
   name: "User",
+  reducers: {
+    setUserPageNumber(state, action) {
+      state.page = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getPaginatedUsers.pending, (state) => {
@@ -47,3 +58,4 @@ const userSlice = createSlice({
 });
 
 export default userSlice.reducer;
+export const { setUserPageNumber } = userSlice.actions;

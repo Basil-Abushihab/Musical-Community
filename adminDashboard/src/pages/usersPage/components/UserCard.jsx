@@ -50,17 +50,6 @@ export const UserCard = ({ user }) => (
       <div className="space-y-3">
         <div className="flex justify-between items-center">
           <Typography variant="small" color="blue-gray">
-            Status
-          </Typography>
-          <Chip
-            size="sm"
-            variant="ghost"
-            value={user.isActive ? "Active" : "Inactive"}
-            color={user.isActive ? "green" : "blue-gray"}
-          />
-        </div>
-        <div className="flex justify-between items-center">
-          <Typography variant="small" color="blue-gray">
             Account Status
           </Typography>
           <Chip
@@ -69,14 +58,6 @@ export const UserCard = ({ user }) => (
             value={user.isDisabled ? "Disabled" : "Enabled"}
             color={user.isDisabled ? "red" : "blue"}
           />
-        </div>
-        <div className="flex justify-between items-center">
-          <Typography variant="small" color="blue-gray">
-            Last Active
-          </Typography>
-          <Typography variant="small" color="blue-gray">
-            {user.lastActive}
-          </Typography>
         </div>
       </div>
     </CardBody>

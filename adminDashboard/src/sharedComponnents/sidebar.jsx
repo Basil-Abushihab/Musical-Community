@@ -7,6 +7,7 @@ import {
   X,
   Users,
   Guitar,
+  Notebook,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -42,6 +43,11 @@ const Sidebar = () => {
       icon: <Guitar size={20} />,
       label: "Musical Equipment",
       path: "/ManageInstrumentListing",
+    },
+    {
+      icon: <Notebook />,
+      label: "Musical Notes",
+      path: "/ManageMusicalNoteListing",
     },
   ];
 

@@ -1,11 +1,25 @@
 import { useDispatch, useSelector } from "react-redux";
 import { approveOrRejectMusicalNoteListing } from "../../redux/thunkFunctions/musicalNoteThunks/approveOrRejectMusicalNote";
-export const useMusicalNote = (musicalNoteID, isApproved) => {
+export const useMusicalNote = (musicalNoteID) => {
   const dispatch = useDispatch();
   const musicalNote = useSelector((state) => state.musicalNote);
 
   const handleApprove = () => {
-    dispatch(approveOrRejectMusicalNoteListing(musicalNoteID, isApproved));
+    dispatch(
+      approveOrRejectMusicalNoteListing({
+        noteID: musicalNoteID,
+        isApproved: true,
+      })
+    );
   };
-  return { musicalNote: musicalNote, handleApprove };
+
+  const handleReject = () => {
+    dispatch(
+      approveOrRejectMusicalNoteListing({
+        noteID: musicalNoteID,
+        isApproved: false,
+      })
+    );
+  };
+  return { musicalNote: musicalNote, handleApprove, handleReject };
 };

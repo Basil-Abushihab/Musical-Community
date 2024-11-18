@@ -3,18 +3,17 @@ import { User } from "./User";
 import { Order } from "./Order";
 import { Instrument } from "./Instrument";
 import { MusicalNote } from "./MusicalNotes";
-import { SalesStatistics } from "./SalesStatistics";
 import { Billing } from "./Billing";
 import { CustomRequest } from "../projectConfigs/expressObjectsConfig";
 import { Response } from "express";
 interface RegisterdUserType extends Document {
   billingInformation: mongoose.Types.ObjectId | typeof Billing;
-  orders: mongoose.Types.ObjectId[] | typeof Order[];
+  purchasedInstruments: mongoose.Types.ObjectId[] | typeof Instrument[];
+  purchasedMusicalNote: mongoose.Types.ObjectId[] | typeof MusicalNote[];
   profileImage: string;
   listedInstruments: mongoose.Types.ObjectId[] | typeof Instrument[];
   soldInstruments: mongoose.Types.ObjectId[] | typeof Instrument[];
   listedMusicalNotes: mongoose.Types.ObjectId[] | typeof MusicalNote[];
-  salesStatistics: mongoose.Types.ObjectId | typeof SalesStatistics;
   phone: string;
   _id: mongoose.Types.ObjectId;
   username: string;
@@ -29,12 +28,12 @@ interface RegisterdUserType extends Document {
 
 const registeredUserSchema = new Schema({
   billingInformation: { type: Schema.Types.ObjectId, ref: Billing },
-  orders: [{ type: Schema.Types.ObjectId, ref: Order }],
+  purchasedNotes: [{ type: Schema.Types.ObjectId, ref: MusicalNote }],
+  purchasedInstruments: [{ type: Schema.Types.ObjectId, ref: Instrument }],
   profileImage: { type: String },
   listedInstruments: [{ type: Schema.Types.ObjectId, ref: Instrument }],
   soldInstruments: [{ type: Schema.Types.ObjectId, ref: Instrument }],
   listedMusicalNotes: [{ type: Schema.Types.ObjectId, ref: MusicalNote }],
-  salesStatistics: { type: Schema.Types.ObjectId, ref: SalesStatistics },
   paymentID: String,
   customerID: String,
   lastActive: String,

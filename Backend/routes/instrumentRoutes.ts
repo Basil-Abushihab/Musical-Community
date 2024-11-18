@@ -6,7 +6,9 @@ import {
   updateInstrumentData,
   approveOrRejectInstrumentListing,
   deleteInstrument,
+  makeInstrumentReview,
 } from "../controllers/instrumentController";
+import { getInstrumentCount } from "../models/Instrument";
 import { auth } from "../middlewares/auth";
 import { processImages } from "../middlewares/imageProccessor";
 import { uploadFiles } from "../middlewares/firebaseUpload";
@@ -30,4 +32,6 @@ router.put(
   auth,
   approveOrRejectInstrumentListing
 );
+router.get("/getInstrumentCount", getInstrumentCount);
+router.post("/makeIInstrumentReview", auth, makeInstrumentReview);
 export default router;

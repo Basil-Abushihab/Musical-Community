@@ -1,6 +1,5 @@
 import {
   Input,
-  IconButton,
   Button,
   Dialog,
   DialogHeader,
@@ -9,30 +8,34 @@ import {
   Select,
   Option,
 } from "@material-tailwind/react";
-import filterImage from "./assets/filter.png";
+import { RiFilterFill } from "react-icons/ri"; // Import a different filter icon (RiFilterFill)
 import { useContext } from "react";
 import { context } from "../Context-provider/context-provider";
 import { useState } from "react";
-export const FilteringSection = ({isEquipment}) => {
+
+export const FilteringSection = ({ isEquipment }) => {
   const [darkSide, setDarkside] = useContext(context).darkSide;
   const [isOpen, setOpen] = useState(false);
   const handleOpen = () => setOpen(!isOpen);
   console.log(darkSide);
+
   return (
     <div className="flex items-center gap-10 w-[87%]">
       <Input
         className="w-full"
         variant="outline"
         label="Search"
-        color="white"
-      ></Input>
-
-      <img
-        src={filterImage}
-        className="w-[3%] cursor-pointer"
-        alt=""
-        onClick={handleOpen}
+        color="orange"
       />
+
+      {/* Use a button and apply the color directly to the icon */}
+      <button
+        className="w-[3%] cursor-pointer text-orange-500 dark:text-white" // Apply orange and white colors
+        onClick={handleOpen}
+      >
+        <RiFilterFill size={24} /> {/* Adjust size if needed */}
+      </button>
+
       <Dialog
         open={isOpen}
         handler={handleOpen}
@@ -44,14 +47,14 @@ export const FilteringSection = ({isEquipment}) => {
         <DialogBody>
           <div className="flex flex-col w-full">
             <div className="flex justify-evenly">
-              <div className="flex flex-col  w-[40%]">
+              <div className="flex flex-col w-[40%]">
                 <label className="dark:text-gray-200 text-gray-900 font-semibold">
                   Condition
                 </label>
                 <Select
                   name="condition"
                   id="condition"
-                  className=" h-[2.5rem] text-[1rem] bg-gray-200  outline-none"
+                  className="h-[2.5rem] text-[1rem] bg-gray-200 outline-none"
                 >
                   <Option value="Mint">Mint</Option>
                   <Option value="Excellent">Excellent</Option>
@@ -67,7 +70,7 @@ export const FilteringSection = ({isEquipment}) => {
                 <Select
                   name="Type"
                   id="condition"
-                  className="w-[rem] h-[2.5rem] text-[1rem] bg-gray-200  outline-none"
+                  className="w-[rem] h-[2.5rem] text-[1rem] bg-gray-200 outline-none"
                 >
                   <Option value="Instruments">Instruments</Option>
                   <Option value="Equipment">Equipment</Option>
@@ -86,7 +89,7 @@ export const FilteringSection = ({isEquipment}) => {
           >
             <span>Cancel</span>
           </Button>
-          <Button variant="gradient" color="pink" onClick={handleOpen}>
+          <Button variant="gradient" color="orange" onClick={handleOpen}>
             <span>Filter</span>
           </Button>
         </DialogFooter>

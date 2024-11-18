@@ -1,10 +1,9 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import {
   Card,
   CardHeader,
   CardBody,
   Typography,
-  Button,
   IconButton,
   Input,
   Menu,
@@ -16,22 +15,30 @@ import {
 } from "@material-tailwind/react";
 import { useGetUserCount } from "../../customHooks/userHooks/getUserCount";
 import { useUser } from "../../customHooks/userHooks/useUser";
-import { useGetAllUsers } from "../../customHooks/userHooks/getAllUsersHook";
 import { Search, MoreVertical } from "lucide-react";
 import { UserCard } from "./components/UserCard";
 import { CircularPagination } from "../../sharedComponnents/pagination/pagination";
-const TABLE_HEAD = [
-  "User",
-  "Status",
-  "Account Status",
-  "Last Active",
-  "Actions",
-];
+import { useGetPaginatedUsers } from "../../customHooks/userHooks/getPaginatedUsers";
+import { useDispatch, useSelector } from "react-redux";
+import { setUserPageNumber } from "../../redux/slices/userSlice";
+const TABLE_HEAD = ["User", "Account Status", "Actions"];
 export const UsersPage = () => {
+  const page = useSelector((state) => state.user.page);
+  const dispatch = useDispatch();
   const [searchQuery, setSearchQuery] = useState("");
-  const { disableOrEnableUser, users } = useUser();
+  const { disableOrEnableUser } = useUser();
   const count = useGetUserCount();
-  useGetAllUsers(count);
+  const { users } = useGetPaginatedUsers(page);
+  const setPage = (page) => {
+    dispatch(setUserPageNumber(page));
+  };
+
+  const filteredUsers = useMemo(() => {
+    if (!searchQuery) return users;
+    return users.filter((instrument) =>
+      instrument.username.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }, [users, searchQuery]);
   return (
     <div className="bg-blue-gray-50/50 min-h-screen p-4">
       <Card className="h-full w-full">
@@ -50,13 +57,13 @@ export const UsersPage = () => {
           </div>
         </CardHeader>
         <CardBody className="px-0">
-          <div className="md:hidden px-4">
-            {users.users.map((user) => (
+          <div className="md:hidden px-4 h-[49rem] overflow-y-scroll">
+            {filteredUsers?.map((user) => (
               <UserCard key={user.id} user={user} />
             ))}
           </div>
 
-          <div className="hidden md:block">
+          <div className="hidden md:block h-[49rem] overflow-y-scroll">
             <table className="w-full min-w-max table-auto text-left">
               <thead>
                 <tr>
@@ -77,7 +84,7 @@ export const UsersPage = () => {
                 </tr>
               </thead>
               <tbody>
-                {users.users.map((user) => (
+                {filteredUsers?.map((user) => (
                   <tr key={user.id} className="hover:bg-blue-gray-50/50">
                     <td className="p-4">
                       <div className="flex items-center gap-3">
@@ -109,27 +116,11 @@ export const UsersPage = () => {
                       <Chip
                         size="sm"
                         variant="ghost"
-                        value={user.isActive ? "Active" : "Inactive"}
-                        color={user.isActive ? "green" : "blue-gray"}
-                      />
-                    </td>
-                    <td className="p-4">
-                      <Chip
-                        size="sm"
-                        variant="ghost"
                         value={user.isDisabled ? "Disabled" : "Enabled"}
                         color={user.isDisabled ? "red" : "blue"}
                       />
                     </td>
-                    <td className="p-4">
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal"
-                      >
-                        {user.lastActive}
-                      </Typography>
-                    </td>
+
                     <td className="p-4">
                       <Menu placement="bottom-end">
                         <MenuHandler>
@@ -138,8 +129,6 @@ export const UsersPage = () => {
                           </IconButton>
                         </MenuHandler>
                         <MenuList>
-                          <MenuItem>View Details</MenuItem>
-
                           <MenuItem
                             onClick={() => {
                               disableOrEnableUser(user);
@@ -158,7 +147,10 @@ export const UsersPage = () => {
               </tbody>
             </table>
             <div className="flex w-full justify-center">
-              <CircularPagination itemLength={count} />
+              <CircularPagination
+                paginatedDataFunction={setPage}
+                itemLength={count}
+              />
             </div>
           </div>
         </CardBody>

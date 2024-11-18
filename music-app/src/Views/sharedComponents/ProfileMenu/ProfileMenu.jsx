@@ -12,7 +12,7 @@ export const ProfileMenu = () => {
   return (
     <Menu>
       <MenuHandler>
-        <Typography className="cursor-pointer  bg-gradient-to-r from-pink-300 via-purple-300 to-pink-500 text-transparent bg-clip-text">
+        <Typography className="cursor-pointer  bg-gradient-to-r from-orange-300 via-orange-400 to-orange-500 text-transparent font-[Pacifico] bg-clip-text">
           {auth.username}
         </Typography>
       </MenuHandler>

@@ -8,16 +8,20 @@ import {
   IconButton,
   Chip,
 } from "@material-tailwind/react";
+import { useState } from "react";
 import { MoreVertical } from "lucide-react";
+import { useInstrument } from "../../../customHooks/instrumentHooks/useInstrument";
 
 export const InstrumentCardsDesktop = ({ instrument }) => {
+  const { handleApprove, handleReject } = useInstrument(instrument._id);
+  const [isApproved, setIsApproved] = useState(instrument.isApproved);
   return (
-    <tr key={instrument.id} className="hover:bg-blue-gray-50/50">
+    <tr key={instrument._id} className="hover:bg-blue-gray-50/50">
       <td className="p-4">
         <div className="flex items-center gap-3">
           <img
-            src={instrument.image}
-            alt={instrument.title}
+            src={instrument.instrumentMedia}
+            alt={instrument.instrumentTitle}
             className="h-12 w-12 rounded-lg object-cover"
           />
           <div className="flex flex-col">
@@ -26,30 +30,25 @@ export const InstrumentCardsDesktop = ({ instrument }) => {
               color="blue-gray"
               className="font-normal"
             >
-              {instrument.title}
+              {instrument.instrumentTitle}
             </Typography>
             <Typography
               variant="small"
               color="blue-gray"
               className="font-normal opacity-70"
             >
-              {instrument.requester}
+              {instrument.posterID.username}
             </Typography>
           </div>
         </div>
-      </td>
-      <td className="p-4">
-        <Typography variant="small" color="blue-gray" className="font-normal">
-          {instrument.department}
-        </Typography>
       </td>
       <td className="p-4">
         <Chip
           className="w-fit"
           size="sm"
           variant="filled"
-          value={instrument.isApproved ? "Approved" : "Not Approved"}
-          color={instrument.isApproved ? "green" : "red"}
+          value={isApproved ? "Approved" : "Not Approved"}
+          color={isApproved ? "green" : "red"}
         />
       </td>
 
@@ -59,7 +58,7 @@ export const InstrumentCardsDesktop = ({ instrument }) => {
           size="sm"
           variant="filled"
           value={instrument.isSoldOut ? "Sold Out" : "Available"}
-          color={instrument.isApproved ? "red" : "green"}
+          color={instrument.isSoldOut ? "red" : "green"}
         />
       </td>
       <td className="p-4">
@@ -75,9 +74,23 @@ export const InstrumentCardsDesktop = ({ instrument }) => {
             </IconButton>
           </MenuHandler>
           <MenuList>
-            <MenuItem>View Details</MenuItem>
-            <MenuItem>Approve Request</MenuItem>
-            <MenuItem className="text-red-500">Disapprove Request</MenuItem>
+            <MenuItem
+              onClick={() => {
+                setIsApproved(true);
+                handleApprove();
+              }}
+            >
+              Approve Request
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                setIsApproved(false);
+                handleReject();
+              }}
+              className="text-red-500"
+            >
+              Disapprove Request
+            </MenuItem>
           </MenuList>
         </Menu>
       </td>

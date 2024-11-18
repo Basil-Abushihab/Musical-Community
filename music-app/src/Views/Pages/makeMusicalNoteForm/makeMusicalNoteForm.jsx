@@ -37,14 +37,14 @@ export const NoteForm = () => {
     <>
       <Button
         onClick={handleOpen}
-        color="white"
-        className="text-pink-500 hover:bg-pink-50"
+        color="orange"
+        className="text-white hover:bg-orange-600"
       >
         Create Musical Note
       </Button>
       <Dialog open={open} handler={handleOpen} size="xl">
         <form onSubmit={makeMusicalNoteHandler}>
-          <DialogHeader className="text-2xl font-bold text-center text-blue-900 bg-blue-100 py-4">
+          <DialogHeader className="text-2xl font-bold text-center text-white bg-orange-500 py-4">
             Create a New Musical Note
           </DialogHeader>
           <DialogBody divider className="grid gap-4 p-6">
@@ -83,13 +83,13 @@ export const NoteForm = () => {
           <DialogFooter className="flex justify-end space-x-2 p-4">
             <Button
               variant="outlined"
-              color="red"
+              color="orange"
               onClick={handleOpen}
               className="mr-1"
             >
               Cancel
             </Button>
-            <Button type="submit" variant="gradient" color="green">
+            <Button type="submit" variant="gradient" color="orange">
               Create Note
             </Button>
           </DialogFooter>
